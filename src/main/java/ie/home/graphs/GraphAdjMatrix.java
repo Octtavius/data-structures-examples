@@ -3,7 +3,9 @@ package ie.home.graphs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraphAdjMatrix extends Graph{
+import ie.home.matrixes.MatrixHelpers;
+
+public class GraphAdjMatrix extends GraphMatrix{
 
 	private int[][] adjMatrix;
 	
@@ -47,8 +49,55 @@ public class GraphAdjMatrix extends Graph{
 				neighbors.add(i);
 			}
 		}
-		return null;
+		return neighbors;
 	}
 
+	@Override
+	protected List<Integer> getNeighboursIndegree(int vertex) {
+		List<Integer> neighbors = new ArrayList<Integer>();
+		int numOfVertices = getNumVertices();
+		
+		for (int i = 0; i < numOfVertices; i++) {
+			if (adjMatrix[i][vertex] != 0) {
+				neighbors.add(i);
+			}
+		}
+		
+		return neighbors;
+	}
+
+	// this is outdegree neighbours
+	@Override
+	protected List<Integer> getTwoHopesNeighbors(int vertex) {
+		List<Integer> neighbours = new ArrayList<Integer>();
+		
+		for (int i = 0; i < getNumVertices(); i++) {
+			if (adjMatrix[vertex][i] > 0) {
+				getNeighbors(i)
+					.stream()
+					.forEach(n -> {
+						if (!neighbours.contains(n)) {
+							neighbours.add(n);
+						}
+					});;
+			}
+		}
+		
+		return neighbours;
+	}
 	
+	// this is outdegree neighbours
+	@Override
+	protected List<Integer> getTwoHopesNeighborsByMultiplying(int vertex) {
+		List<Integer> neighbours = new ArrayList<Integer>();
+		int[][] multipliedMatrix = MatrixHelpers.matrixToPowerTwo(adjMatrix);
+
+		for (int i = 0; i < multipliedMatrix.length; i++) {
+			if (multipliedMatrix[vertex][i] > 0) {
+				neighbours.add(i);
+			}
+		}
+		
+		return neighbours;
+	}
 }

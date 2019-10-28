@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 public class MainClass {
 
 	public static void main(String[] args) {
-//		Graph matrixGraph = initMatrixGraph();
+		Graph matrixGraph = initMatrixGraph();
 //		
 //		System.out.println("Matris Graphs");
 //		matrixGraph

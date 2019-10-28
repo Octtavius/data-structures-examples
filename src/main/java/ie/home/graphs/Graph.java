@@ -35,6 +35,10 @@ public abstract class Graph {
 	
 	protected abstract List<Integer> getTwoHopesNeighbors(int vertex);
 	
+	//TODO BFS
+	
+	//TODO DFS
+	
 	/**
 	 * the degree of a vertex is the sum of its in-degree and its out-degree
 	 */
